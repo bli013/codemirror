@@ -1,27 +1,35 @@
-import React from 'react'
+import React, { Component } from 'react'
 import './style.css'
-import {UnControlled as CodeMirror} from 'react-codemirror2'
-
-require('../../node_modules/codemirror/mode/xml/xml')
-require('../../node_modules/codemirror/mode/javascript/javascript')
+import CodeMirror from 'react-codemirror';
+import 'codemirror/lib/codemirror.css'
 
 
-function Ide () {
+class Ide extends Component{
+  constructor() {
+    super();
+    this.state = {
+      code: '// Code here'
+    };
+  }
+
+  updateCode(newCode){
+    this.setState({
+      code: newCode,
+    });
+  }
+
+  render(){
+    let options = {
+      mode: 'xml',
+      lineNumbers: true,
+    };
   return (
     <div className="Ide">
      <h2>IDE component</h2>
-        <CodeMirror
-        value='<h1>I ♥ react-codemirror2</h1>'
-        options={{
-            mode: 'xml',
-            theme: 'material',
-            lineNumbers: true
-        }}
-        onChange={(editor, data, value) => {
-        }}
-        />
+        <CodeMirror value={this.state.code} onChange={this.updateCode.bind(this)} options={options} />
     </div>
-  );
+    );
+  }
 }
 
 export default Ide;
